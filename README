@@ -1,0 +1,142 @@
+= Git Tutorial
+
+Git is a distributed version control system.  Version control lets you
+have multiple people work on the same project at the same time and
+keep track of changes over time.
+
+== Installing Git
+
+* check that you have git installed by running "git --version"
+* brew install git
+
+== Starting a New Git Repository
+
+* change to your project directory
+* git init .    # creates a new local git repository for this directory
+
+This created an empty git repository that doesn't have any changes
+recorded. All changes are recorded in a hidden .git directory in your
+project.
+
+== Staging Changes
+
+When you've made changes to your project, you need to let git know
+when you're done, so that git can record your changes. First we want
+to preview the changes we've made. This is called "staging" your
+changes.
+
+* git status    # shows that all your files are "untracked"
+* git add -i    # add changes to the staging area.  -i means 'interactive'
+
+When you're done adding the changes to the staging area, run "git
+status" again. This should show you what has been staged and what
+hasn't.
+
+== Committing Changes
+
+Once you're happy with your changes, you tell git to "commit" your changes.
+This will actually record the differences you made since your last commit, the
+current time, and a commit message about your changes.
+
+First, let's set your EDITOR variable to "mate". Git uses this variable to let
+you type your commit message.
+
+* mate ~/.profile
+* at the bottom of the file, add on a new line "EDITOR=mate"
+
+Now that we have an editor, we run:
+
+* git commit
+
+This will popup TextMate, and you need to write a message describing what your
+changes are. It's good to be descriptive here for your coworkers, and also for
+your future self.
+
+Run:
+
+* git log    # you'll see the commit you just made.
+
+Try practicing by editing the file, and staging the new changes and making
+another commit.
+
+== Undoing Changes
+
+If you haven't committed a change, you can just edit however you like.
+
+If you have a change staged, and want to unstage the change:
+
+* git reset _filename_   # or...
+* git add -i             # choose (r)evert, and select the files there
+
+Unstaging a file doesn't get rid of your changes, it just unstages them so you
+don't commit them.
+
+If you have a change committed locally, but you haven't pushed it to any
+remote repositories:
+
+* stage your new changes  (git add -i)
+* git commit --amend     # commits your staged changes to your last commit
+
+== Branching
+
+Branches are a way to work on different features at the same time. Each
+"branch" of your code will keep track of it's own changes, so you can switch
+between branches to work on different features. By default, you are on the
+"master" branch.
+
+* git branch                       # shows what local branches you have
+* git checkout -b my_branch_name   # make a new branch from my current branch
+* stage and commit changes on your new branch without affecting other branches
+* git checkout master              # switch back to 'master' branch
+
+== Adding a Remote Repository
+
+Git is distributed version control. Distributed means that you can track your
+changes on multiple computers with multiple team members. Everyone gets their
+own local copy, and when you want to share your changes you push them to your
+team members.
+
+First, we'll sign up for a Github account. Think of Github as a shared space
+for you and your team to track your projects. Follow the first few tutorials
+to get setup with github.
+
+* setup ssh key
+* add ssh key to github
+* add a new repository in github
+* copy the github repository url
+* git remote add origin github_repository_url   # add a remote repository named 'origin'. Can be named anything, can have multiple remotes.
+
+== Pushing Changes to a Remote Repository
+
+Now you have a empty remote repository. We need to get our local history of
+changes up to our remote repository.
+
+* git push origin master    # pushes the local 'master' branch to the remote named 'origin'. If you have a different remote, just change the name.
+* go to github
+* refresh your project page, if you click on 'Commits', you should see a
+  history of your changes
+
+== Pulling Changes from a Remote Repository
+
+If your team members also push changes to the same remote repository, you'll
+want to fetch their changes sometimes into your own local repository.
+
+* git fetch origin  # fetches changes from the remote 'origin', doesn't do anything to your local copy
+* git branch -r     # show remote branches
+* git checkout -b 
+
+== Merging Changes
+
+Once you've chosen which branch you want in your local repository
+
+Git Tips
+
+* .gitignore - list files you want git to ignore
+* git shortcuts - 
+* git add -u    # stage all modified files, but don't add any untracked files
+* GitX - graphical git tool for OSX
+* git commit -m "commit message"  # for short commit messages, you can just type inline without an editor.
+* git help
+* gitref.org
+* commit in logical chunks - it's good practice to commit things that are
+  related to each other. It makes it easier to undo a single bad "chunk".
